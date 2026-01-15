@@ -148,7 +148,7 @@ export function BuilderProvider({ children }: { children: ReactNode }) {
       setPageState((prev) => ({
         ...prev,
         blocks: prev.blocks.map((b) =>
-          b.id === blockId ? { ...b, ...props } : b
+          b.id === blockId ? ({ ...b, ...props } as PageBlock) : b
         ),
       }));
     },

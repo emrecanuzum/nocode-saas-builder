@@ -13,13 +13,26 @@ export default function FeatureZigZag({
   features = [],
   primaryColor,
   secondaryColor,
-}: FeatureZigZagProps) {
+  backgroundImage,
+  backgroundColor,
+}: FeatureZigZagProps & {
+  backgroundImage?: string;
+  backgroundColor?: string;
+}) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   const customStyles = {
     ...(primaryColor ? { "--primary": primaryColor } : {}),
     ...(secondaryColor ? { "--secondary": secondaryColor } : {}),
+    ...(backgroundImage
+      ? {
+          backgroundImage: `url(${backgroundImage})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }
+      : {}),
+    ...(backgroundColor ? { backgroundColor } : {}),
   } as React.CSSProperties;
 
   return (
@@ -27,7 +40,11 @@ export default function FeatureZigZag({
       id={id}
       ref={ref}
       style={customStyles}
-      className={cn("py-20 lg:py-32", className)}
+      className={cn(
+        "py-20 lg:py-32",
+        !backgroundImage && !backgroundColor && "bg-background",
+        className
+      )}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="space-y-24 lg:space-y-32">

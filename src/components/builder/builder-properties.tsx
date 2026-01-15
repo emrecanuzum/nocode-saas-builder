@@ -315,6 +315,33 @@ function BlockPropertyEditor({ block }: { block: PageBlock }) {
               }
             />
           </PropertiesSection>
+          <PropertiesSection title="Renkler" defaultOpen={false}>
+            <ColorPickerField
+              label="Ana Renk"
+              value={(block as any).primaryColor || ""}
+              onChange={(v) => handleChange("primaryColor", v)}
+            />
+            <ColorPickerField
+              label="İkincil Renk"
+              value={(block as any).secondaryColor || ""}
+              onChange={(v) => handleChange("secondaryColor", v)}
+            />
+          </PropertiesSection>
+          <PropertiesSection title="Arka Plan" defaultOpen={false}>
+            <ImageUploadField
+              label="Arka Plan Görseli"
+              value={{
+                src: (block as any).backgroundImage || "",
+                alt: "Arka plan",
+              }}
+              onChange={(v) => handleChange("backgroundImage", v.src)}
+            />
+            <ColorPickerField
+              label="Arka Plan Renk"
+              value={(block as any).backgroundColor || ""}
+              onChange={(v) => handleChange("backgroundColor", v)}
+            />
+          </PropertiesSection>
         </>
       );
 
@@ -420,6 +447,33 @@ function BlockPropertyEditor({ block }: { block: PageBlock }) {
               )}
             />
           </PropertiesSection>
+          <PropertiesSection title="Renkler" defaultOpen={false}>
+            <ColorPickerField
+              label="Ana Renk"
+              value={(block as any).primaryColor || ""}
+              onChange={(v) => handleChange("primaryColor", v)}
+            />
+            <ColorPickerField
+              label="İkincil Renk"
+              value={(block as any).secondaryColor || ""}
+              onChange={(v) => handleChange("secondaryColor", v)}
+            />
+          </PropertiesSection>
+          <PropertiesSection title="Arka Plan" defaultOpen={false}>
+            <ImageUploadField
+              label="Arka Plan Görseli"
+              value={{
+                src: (block as any).backgroundImage || "",
+                alt: "Arka plan",
+              }}
+              onChange={(v) => handleChange("backgroundImage", v.src)}
+            />
+            <ColorPickerField
+              label="Arka Plan Renk"
+              value={(block as any).backgroundColor || ""}
+              onChange={(v) => handleChange("backgroundColor", v)}
+            />
+          </PropertiesSection>
         </>
       );
 
@@ -472,6 +526,33 @@ function BlockPropertyEditor({ block }: { block: PageBlock }) {
               label="Gri Tonlama"
               value={(block as any).grayscale !== false}
               onChange={(v) => handleChange("grayscale", v)}
+            />
+          </PropertiesSection>
+          <PropertiesSection title="Renkler" defaultOpen={false}>
+            <ColorPickerField
+              label="Ana Renk"
+              value={(block as any).primaryColor || ""}
+              onChange={(v) => handleChange("primaryColor", v)}
+            />
+            <ColorPickerField
+              label="İkincil Renk"
+              value={(block as any).secondaryColor || ""}
+              onChange={(v) => handleChange("secondaryColor", v)}
+            />
+          </PropertiesSection>
+          <PropertiesSection title="Arka Plan" defaultOpen={false}>
+            <ImageUploadField
+              label="Arka Plan Görseli"
+              value={{
+                src: (block as any).backgroundImage || "",
+                alt: "Arka plan",
+              }}
+              onChange={(v) => handleChange("backgroundImage", v.src)}
+            />
+            <ColorPickerField
+              label="Arka Plan Renk"
+              value={(block as any).backgroundColor || ""}
+              onChange={(v) => handleChange("backgroundColor", v)}
             />
           </PropertiesSection>
         </>
@@ -533,6 +614,21 @@ function BlockPropertyEditor({ block }: { block: PageBlock }) {
               label="İkincil Renk"
               value={(block as any).secondaryColor || ""}
               onChange={(v) => handleChange("secondaryColor", v)}
+            />
+          </PropertiesSection>
+          <PropertiesSection title="Arka Plan" defaultOpen={false}>
+            <ImageUploadField
+              label="Arka Plan Görseli"
+              value={{
+                src: (block as any).backgroundImage || "",
+                alt: "Arka plan",
+              }}
+              onChange={(v) => handleChange("backgroundImage", v.src)}
+            />
+            <ColorPickerField
+              label="Arka Plan Renk"
+              value={(block as any).backgroundColor || ""}
+              onChange={(v) => handleChange("backgroundColor", v)}
             />
           </PropertiesSection>
         </>
@@ -636,6 +732,28 @@ function BlockPropertyEditor({ block }: { block: PageBlock }) {
               onChange={(v) => handleChange("secondaryColor", v)}
             />
           </PropertiesSection>
+          <PropertiesSection title="Arka Plan" defaultOpen={false}>
+            <ImageUploadField
+              label="Arka Plan Görseli"
+              value={{
+                src: (block as any).backgroundImage || "",
+                alt: "Arka plan",
+              }}
+              onChange={(v) => handleChange("backgroundImage", v.src)}
+            />
+            <NumberField
+              label="Overlay Opaklık (%)"
+              value={(block as any).overlayOpacity ?? 50}
+              onChange={(v) => handleChange("overlayOpacity", v)}
+              min={0}
+              max={100}
+            />
+            <ColorPickerField
+              label="Overlay Renk"
+              value={(block as any).overlayColor || ""}
+              onChange={(v) => handleChange("overlayColor", v)}
+            />
+          </PropertiesSection>
         </>
       );
 
@@ -668,11 +786,28 @@ function BlockPropertyEditor({ block }: { block: PageBlock }) {
               getItemTitle={(item: any, i) => item.title || `Avantaj ${i + 1}`}
               renderItem={(item: any, _, updateItem) => (
                 <>
-                  <TextField
-                    label="İkon (Lucide)"
-                    value={item.icon || ""}
+                  <SelectField
+                    label="İkon"
+                    value={item.icon || "Star"}
                     onChange={(v) => updateItem({ icon: v })}
-                    placeholder="Star, Check, Zap..."
+                    options={[
+                      { value: "Star", label: "⭐ Yıldız" },
+                      { value: "Check", label: "✓ Onay" },
+                      { value: "Zap", label: "⚡ Şimşek" },
+                      { value: "Heart", label: "❤ Kalp" },
+                      { value: "Shield", label: "🛡 Kalkan" },
+                      { value: "Rocket", label: "🚀 Roket" },
+                      { value: "Clock", label: "🕐 Saat" },
+                      { value: "Users", label: "👥 Kullanıcılar" },
+                      { value: "Settings", label: "⚙ Ayarlar" },
+                      { value: "Lock", label: "🔒 Kilit" },
+                      { value: "Globe", label: "🌍 Dünya" },
+                      { value: "Phone", label: "📱 Telefon" },
+                      { value: "Mail", label: "✉ Posta" },
+                      { value: "Award", label: "🏆 Ödül" },
+                      { value: "Target", label: "🎯 Hedef" },
+                      { value: "Lightbulb", label: "💡 Ampul" },
+                    ]}
                   />
                   <TextField
                     label="Başlık"
@@ -689,6 +824,15 @@ function BlockPropertyEditor({ block }: { block: PageBlock }) {
               )}
             />
           </PropertiesSection>
+          <PropertiesSection title="Ayarlar">
+            <NumberField
+              label="Kolon Sayısı"
+              value={(block as any).columns || 3}
+              onChange={(v) => handleChange("columns", v)}
+              min={2}
+              max={4}
+            />
+          </PropertiesSection>
           <PropertiesSection title="Renkler" defaultOpen={false}>
             <ColorPickerField
               label="Ana Renk"
@@ -699,6 +843,21 @@ function BlockPropertyEditor({ block }: { block: PageBlock }) {
               label="İkincil Renk"
               value={(block as any).secondaryColor || ""}
               onChange={(v) => handleChange("secondaryColor", v)}
+            />
+          </PropertiesSection>
+          <PropertiesSection title="Arka Plan" defaultOpen={false}>
+            <ImageUploadField
+              label="Arka Plan Görseli"
+              value={{
+                src: (block as any).backgroundImage || "",
+                alt: "Arka plan",
+              }}
+              onChange={(v) => handleChange("backgroundImage", v.src)}
+            />
+            <ColorPickerField
+              label="Arka Plan Renk"
+              value={(block as any).backgroundColor || ""}
+              onChange={(v) => handleChange("backgroundColor", v)}
             />
           </PropertiesSection>
         </>
@@ -765,6 +924,42 @@ function BlockPropertyEditor({ block }: { block: PageBlock }) {
                   />
                 </>
               )}
+            />
+          </PropertiesSection>
+          <PropertiesSection title="Ayarlar">
+            <NumberField
+              label="Kolon Sayısı"
+              value={(block as any).columns || 3}
+              onChange={(v) => handleChange("columns", v)}
+              min={2}
+              max={4}
+            />
+          </PropertiesSection>
+          <PropertiesSection title="Renkler" defaultOpen={false}>
+            <ColorPickerField
+              label="Ana Renk"
+              value={(block as any).primaryColor || ""}
+              onChange={(v) => handleChange("primaryColor", v)}
+            />
+            <ColorPickerField
+              label="İkincil Renk"
+              value={(block as any).secondaryColor || ""}
+              onChange={(v) => handleChange("secondaryColor", v)}
+            />
+          </PropertiesSection>
+          <PropertiesSection title="Arka Plan" defaultOpen={false}>
+            <ImageUploadField
+              label="Arka Plan Görseli"
+              value={{
+                src: (block as any).backgroundImage || "",
+                alt: "Arka plan",
+              }}
+              onChange={(v) => handleChange("backgroundImage", v.src)}
+            />
+            <ColorPickerField
+              label="Arka Plan Renk"
+              value={(block as any).backgroundColor || ""}
+              onChange={(v) => handleChange("backgroundColor", v)}
             />
           </PropertiesSection>
         </>
@@ -838,6 +1033,33 @@ function BlockPropertyEditor({ block }: { block: PageBlock }) {
               max={4}
             />
           </PropertiesSection>
+          <PropertiesSection title="Renkler" defaultOpen={false}>
+            <ColorPickerField
+              label="Ana Renk"
+              value={(block as any).primaryColor || ""}
+              onChange={(v) => handleChange("primaryColor", v)}
+            />
+            <ColorPickerField
+              label="İkincil Renk"
+              value={(block as any).secondaryColor || ""}
+              onChange={(v) => handleChange("secondaryColor", v)}
+            />
+          </PropertiesSection>
+          <PropertiesSection title="Arka Plan" defaultOpen={false}>
+            <ImageUploadField
+              label="Arka Plan Görseli"
+              value={{
+                src: (block as any).backgroundImage || "",
+                alt: "Arka plan",
+              }}
+              onChange={(v) => handleChange("backgroundImage", v.src)}
+            />
+            <ColorPickerField
+              label="Arka Plan Renk"
+              value={(block as any).backgroundColor || ""}
+              onChange={(v) => handleChange("backgroundColor", v)}
+            />
+          </PropertiesSection>
         </>
       );
 
@@ -898,6 +1120,42 @@ function BlockPropertyEditor({ block }: { block: PageBlock }) {
               )}
             />
           </PropertiesSection>
+          <PropertiesSection title="Ayarlar">
+            <NumberField
+              label="Kolon Sayısı"
+              value={(block as any).columns || 4}
+              onChange={(v) => handleChange("columns", v)}
+              min={2}
+              max={4}
+            />
+          </PropertiesSection>
+          <PropertiesSection title="Renkler" defaultOpen={false}>
+            <ColorPickerField
+              label="Ana Renk"
+              value={(block as any).primaryColor || ""}
+              onChange={(v) => handleChange("primaryColor", v)}
+            />
+            <ColorPickerField
+              label="İkincil Renk"
+              value={(block as any).secondaryColor || ""}
+              onChange={(v) => handleChange("secondaryColor", v)}
+            />
+          </PropertiesSection>
+          <PropertiesSection title="Arka Plan" defaultOpen={false}>
+            <ImageUploadField
+              label="Arka Plan Görseli"
+              value={{
+                src: (block as any).backgroundImage || "",
+                alt: "Arka plan",
+              }}
+              onChange={(v) => handleChange("backgroundImage", v.src)}
+            />
+            <ColorPickerField
+              label="Arka Plan Renk"
+              value={(block as any).backgroundColor || ""}
+              onChange={(v) => handleChange("backgroundColor", v)}
+            />
+          </PropertiesSection>
         </>
       );
 
@@ -939,11 +1197,28 @@ function BlockPropertyEditor({ block }: { block: PageBlock }) {
                     min={1}
                     max={10}
                   />
-                  <TextField
-                    label="İkon (Lucide)"
-                    value={item.icon || ""}
+                  <SelectField
+                    label="İkon"
+                    value={item.icon || "Check"}
                     onChange={(v) => updateItem({ icon: v })}
-                    placeholder="Check, ArrowRight..."
+                    options={[
+                      { value: "Star", label: "⭐ Yıldız" },
+                      { value: "Check", label: "✓ Onay" },
+                      { value: "Zap", label: "⚡ Şimşek" },
+                      { value: "Heart", label: "❤ Kalp" },
+                      { value: "Shield", label: "🛡 Kalkan" },
+                      { value: "Rocket", label: "🚀 Roket" },
+                      { value: "Clock", label: "🕐 Saat" },
+                      { value: "Users", label: "👥 Kullanıcılar" },
+                      { value: "Settings", label: "⚙ Ayarlar" },
+                      { value: "Lock", label: "🔒 Kilit" },
+                      { value: "Globe", label: "🌍 Dünya" },
+                      { value: "Phone", label: "📱 Telefon" },
+                      { value: "Mail", label: "✉ Posta" },
+                      { value: "Award", label: "🏆 Ödül" },
+                      { value: "Target", label: "🎯 Hedef" },
+                      { value: "Lightbulb", label: "💡 Ampul" },
+                    ]}
                   />
                   <TextField
                     label="Başlık"
@@ -988,6 +1263,21 @@ function BlockPropertyEditor({ block }: { block: PageBlock }) {
               onChange={(v) => handleChange("secondaryColor", v)}
             />
           </PropertiesSection>
+          <PropertiesSection title="Arka Plan" defaultOpen={false}>
+            <ImageUploadField
+              label="Arka Plan Görseli"
+              value={{
+                src: (block as any).backgroundImage || "",
+                alt: "Arka plan",
+              }}
+              onChange={(v) => handleChange("backgroundImage", v.src)}
+            />
+            <ColorPickerField
+              label="Arka Plan Renk"
+              value={(block as any).backgroundColor || ""}
+              onChange={(v) => handleChange("backgroundColor", v)}
+            />
+          </PropertiesSection>
         </>
       );
 
@@ -1017,7 +1307,10 @@ function BlockPropertyEditor({ block }: { block: PageBlock }) {
                 name: "Yeni Plan",
                 price: { amount: "99", period: "ay" },
                 description: "Plan açıklaması",
-                features: ["Özellik 1", "Özellik 2"],
+                features: [
+                  { text: "Özellik 1", included: true },
+                  { text: "Özellik 2", included: true },
+                ],
                 highlighted: false,
                 ctaButton: { label: "Başla", href: "#" },
               })}
@@ -1080,6 +1373,87 @@ function BlockPropertyEditor({ block }: { block: PageBlock }) {
                       })
                     }
                   />
+                  {/* Nested Features Editor */}
+                  <div className="mt-4 pt-4 border-t border-border/50">
+                    <p className="text-sm font-medium text-foreground mb-2">
+                      Özellikler
+                    </p>
+                    {(item.features || []).map(
+                      (feature: any, fIndex: number) => {
+                        // Handle both string and object features
+                        const featureText =
+                          typeof feature === "string"
+                            ? feature
+                            : feature.text || "";
+                        const featureIncluded =
+                          typeof feature === "string"
+                            ? true
+                            : feature.included !== false;
+                        return (
+                          <div
+                            key={fIndex}
+                            className="flex items-center gap-2 mb-2"
+                          >
+                            <input
+                              type="text"
+                              value={featureText}
+                              onChange={(e) => {
+                                const newFeatures = [...(item.features || [])];
+                                newFeatures[fIndex] = {
+                                  text: e.target.value,
+                                  included: featureIncluded,
+                                };
+                                updateItem({ features: newFeatures });
+                              }}
+                              className="flex-1 px-2 py-1 text-sm rounded border border-border bg-background"
+                              placeholder="Özellik yazın..."
+                            />
+                            <label className="flex items-center gap-1 text-xs cursor-pointer">
+                              <input
+                                type="checkbox"
+                                checked={featureIncluded}
+                                onChange={(e) => {
+                                  const newFeatures = [
+                                    ...(item.features || []),
+                                  ];
+                                  newFeatures[fIndex] = {
+                                    text: featureText,
+                                    included: e.target.checked,
+                                  };
+                                  updateItem({ features: newFeatures });
+                                }}
+                                className="w-4 h-4"
+                              />
+                              Dahil
+                            </label>
+                            <button
+                              onClick={() => {
+                                const newFeatures = [...(item.features || [])];
+                                newFeatures.splice(fIndex, 1);
+                                updateItem({ features: newFeatures });
+                              }}
+                              className="p-1 text-destructive hover:bg-destructive/10 rounded"
+                              title="Özelliği Sil"
+                            >
+                              ✕
+                            </button>
+                          </div>
+                        );
+                      }
+                    )}
+                    <button
+                      onClick={() => {
+                        const newFeatures = [
+                          ...(item.features || []),
+                          { text: "Yeni özellik", included: true },
+                        ];
+                        updateItem({ features: newFeatures });
+                      }}
+                      className="mt-1 px-2 py-1 text-xs bg-primary/10 text-primary rounded hover:bg-primary/20 transition-colors"
+                    >
+                      + Özellik Ekle
+                    </button>
+                  </div>
                 </>
               )}
             />
@@ -1094,6 +1468,21 @@ function BlockPropertyEditor({ block }: { block: PageBlock }) {
               label="İkincil Renk"
               value={(block as any).secondaryColor || ""}
               onChange={(v) => handleChange("secondaryColor", v)}
+            />
+          </PropertiesSection>
+          <PropertiesSection title="Arka Plan" defaultOpen={false}>
+            <ImageUploadField
+              label="Arka Plan Görseli"
+              value={{
+                src: (block as any).backgroundImage || "",
+                alt: "Arka plan",
+              }}
+              onChange={(v) => handleChange("backgroundImage", v.src)}
+            />
+            <ColorPickerField
+              label="Arka Plan Renk"
+              value={(block as any).backgroundColor || ""}
+              onChange={(v) => handleChange("backgroundColor", v)}
             />
           </PropertiesSection>
         </>
@@ -1164,6 +1553,21 @@ function BlockPropertyEditor({ block }: { block: PageBlock }) {
               onChange={(v) => handleChange("secondaryColor", v)}
             />
           </PropertiesSection>
+          <PropertiesSection title="Arka Plan" defaultOpen={false}>
+            <ImageUploadField
+              label="Arka Plan Görseli"
+              value={{
+                src: (block as any).backgroundImage || "",
+                alt: "Arka plan",
+              }}
+              onChange={(v) => handleChange("backgroundImage", v.src)}
+            />
+            <ColorPickerField
+              label="Arka Plan Renk"
+              value={(block as any).backgroundColor || ""}
+              onChange={(v) => handleChange("backgroundColor", v)}
+            />
+          </PropertiesSection>
         </>
       );
 
@@ -1193,6 +1597,33 @@ function BlockPropertyEditor({ block }: { block: PageBlock }) {
                 { value: "image", label: "Resim" },
                 { value: "solid", label: "Düz Renk" },
               ]}
+            />
+          </PropertiesSection>
+          <PropertiesSection title="Renkler" defaultOpen={false}>
+            <ColorPickerField
+              label="Ana Renk"
+              value={(block as any).primaryColor || ""}
+              onChange={(v) => handleChange("primaryColor", v)}
+            />
+            <ColorPickerField
+              label="İkincil Renk"
+              value={(block as any).secondaryColor || ""}
+              onChange={(v) => handleChange("secondaryColor", v)}
+            />
+          </PropertiesSection>
+          <PropertiesSection title="Arka Plan" defaultOpen={false}>
+            <ImageUploadField
+              label="Arka Plan Görseli"
+              value={{
+                src: (block as any).backgroundImage || "",
+                alt: "Arka plan",
+              }}
+              onChange={(v) => handleChange("backgroundImage", v.src)}
+            />
+            <ColorPickerField
+              label="Arka Plan Renk"
+              value={(block as any).backgroundColor || ""}
+              onChange={(v) => handleChange("backgroundColor", v)}
             />
           </PropertiesSection>
         </>
@@ -1240,6 +1671,33 @@ function BlockPropertyEditor({ block }: { block: PageBlock }) {
               onChange={(v) =>
                 handleChange("afterImage", { type: "image" as const, ...v })
               }
+            />
+          </PropertiesSection>
+          <PropertiesSection title="Renkler" defaultOpen={false}>
+            <ColorPickerField
+              label="Ana Renk"
+              value={(block as any).primaryColor || ""}
+              onChange={(v) => handleChange("primaryColor", v)}
+            />
+            <ColorPickerField
+              label="İkincil Renk"
+              value={(block as any).secondaryColor || ""}
+              onChange={(v) => handleChange("secondaryColor", v)}
+            />
+          </PropertiesSection>
+          <PropertiesSection title="Arka Plan" defaultOpen={false}>
+            <ImageUploadField
+              label="Arka Plan Görseli"
+              value={{
+                src: (block as any).backgroundImage || "",
+                alt: "Arka plan",
+              }}
+              onChange={(v) => handleChange("backgroundImage", v.src)}
+            />
+            <ColorPickerField
+              label="Arka Plan Renk"
+              value={(block as any).backgroundColor || ""}
+              onChange={(v) => handleChange("backgroundColor", v)}
             />
           </PropertiesSection>
         </>
@@ -1309,6 +1767,33 @@ function BlockPropertyEditor({ block }: { block: PageBlock }) {
               onChange={(v) => handleChange("showCategories", v)}
             />
           </PropertiesSection>
+          <PropertiesSection title="Renkler" defaultOpen={false}>
+            <ColorPickerField
+              label="Ana Renk"
+              value={(block as any).primaryColor || ""}
+              onChange={(v) => handleChange("primaryColor", v)}
+            />
+            <ColorPickerField
+              label="İkincil Renk"
+              value={(block as any).secondaryColor || ""}
+              onChange={(v) => handleChange("secondaryColor", v)}
+            />
+          </PropertiesSection>
+          <PropertiesSection title="Arka Plan" defaultOpen={false}>
+            <ImageUploadField
+              label="Arka Plan Görseli"
+              value={{
+                src: (block as any).backgroundImage || "",
+                alt: "Arka plan",
+              }}
+              onChange={(v) => handleChange("backgroundImage", v.src)}
+            />
+            <ColorPickerField
+              label="Arka Plan Renk"
+              value={(block as any).backgroundColor || ""}
+              onChange={(v) => handleChange("backgroundColor", v)}
+            />
+          </PropertiesSection>
         </>
       );
 
@@ -1373,6 +1858,33 @@ function BlockPropertyEditor({ block }: { block: PageBlock }) {
                   />
                 </>
               )}
+            />
+          </PropertiesSection>
+          <PropertiesSection title="Renkler" defaultOpen={false}>
+            <ColorPickerField
+              label="Ana Renk"
+              value={(block as any).primaryColor || ""}
+              onChange={(v) => handleChange("primaryColor", v)}
+            />
+            <ColorPickerField
+              label="İkincil Renk"
+              value={(block as any).secondaryColor || ""}
+              onChange={(v) => handleChange("secondaryColor", v)}
+            />
+          </PropertiesSection>
+          <PropertiesSection title="Arka Plan" defaultOpen={false}>
+            <ImageUploadField
+              label="Arka Plan Görseli"
+              value={{
+                src: (block as any).backgroundImage || "",
+                alt: "Arka plan",
+              }}
+              onChange={(v) => handleChange("backgroundImage", v.src)}
+            />
+            <ColorPickerField
+              label="Arka Plan Renk"
+              value={(block as any).backgroundColor || ""}
+              onChange={(v) => handleChange("backgroundColor", v)}
             />
           </PropertiesSection>
         </>

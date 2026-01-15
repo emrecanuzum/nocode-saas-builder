@@ -26,9 +26,31 @@ export default function TeamGrid({
   columns = 4,
   showBio = true,
   showSocialLinks = true,
-}: TeamGridProps) {
+  primaryColor,
+  secondaryColor,
+  backgroundImage,
+  backgroundColor,
+}: TeamGridProps & {
+  primaryColor?: string;
+  secondaryColor?: string;
+  backgroundImage?: string;
+  backgroundColor?: string;
+}) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+
+  const customStyles = {
+    ...(primaryColor ? { "--primary": primaryColor } : {}),
+    ...(secondaryColor ? { "--secondary": secondaryColor } : {}),
+    ...(backgroundImage
+      ? {
+          backgroundImage: `url(${backgroundImage})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }
+      : {}),
+    ...(backgroundColor ? { backgroundColor } : {}),
+  } as React.CSSProperties;
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -65,8 +87,12 @@ export default function TeamGrid({
     <section
       id={id}
       ref={ref}
+      style={customStyles}
       className={cn(
-        "py-20 lg:py-32 bg-gradient-to-b from-background to-accent/5",
+        "py-20 lg:py-32",
+        !backgroundImage &&
+          !backgroundColor &&
+          "bg-linear-to-b from-background to-accent/5",
         className
       )}
     >
@@ -97,10 +123,6 @@ export default function TeamGrid({
           animate="visible"
           className={cn("grid gap-8", columnClasses[columns])}
         >
-          <div className="col-span-full bg-yellow-100 p-2 text-xs text-black mb-4">
-            DEBUG: Members count: {members.length}
-            <pre>{JSON.stringify(members.slice(0, 2), null, 2)}</pre>
-          </div>
           {members.map((member) => (
             <div key={member.id} className="group relative">
               {/* Card */}

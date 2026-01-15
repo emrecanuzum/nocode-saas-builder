@@ -16,13 +16,26 @@ export default function TestimonialGrid({
   showRating = true,
   primaryColor,
   secondaryColor,
-}: TestimonialGridProps) {
+  backgroundImage,
+  backgroundColor,
+}: TestimonialGridProps & {
+  backgroundImage?: string;
+  backgroundColor?: string;
+}) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   const customStyles = {
     ...(primaryColor ? { "--primary": primaryColor } : {}),
     ...(secondaryColor ? { "--secondary": secondaryColor } : {}),
+    ...(backgroundImage
+      ? {
+          backgroundImage: `url(${backgroundImage})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }
+      : {}),
+    ...(backgroundColor ? { backgroundColor } : {}),
   } as React.CSSProperties;
 
   const containerVariants = {
@@ -61,7 +74,10 @@ export default function TestimonialGrid({
       ref={ref}
       style={customStyles}
       className={cn(
-        "py-20 lg:py-32 bg-linear-to-b from-accent/10 via-background to-background",
+        "py-20 lg:py-32",
+        !backgroundImage &&
+          !backgroundColor &&
+          "bg-linear-to-b from-accent/10 via-background to-background",
         className
       )}
     >
@@ -89,7 +105,7 @@ export default function TestimonialGrid({
         <motion.div
           variants={containerVariants}
           initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
+          animate="visible"
           className={cn("grid gap-8", columnClasses[columns])}
         >
           {testimonials.map((testimonial, index) => (

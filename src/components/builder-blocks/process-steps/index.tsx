@@ -33,13 +33,26 @@ export default function ProcessSteps({
   variant = "horizontal",
   primaryColor,
   secondaryColor,
-}: ProcessStepsProps) {
+  backgroundImage,
+  backgroundColor,
+}: ProcessStepsProps & {
+  backgroundImage?: string;
+  backgroundColor?: string;
+}) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   const customStyles = {
     ...(primaryColor ? { "--primary": primaryColor } : {}),
     ...(secondaryColor ? { "--secondary": secondaryColor } : {}),
+    ...(backgroundImage
+      ? {
+          backgroundImage: `url(${backgroundImage})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }
+      : {}),
+    ...(backgroundColor ? { backgroundColor } : {}),
   } as React.CSSProperties;
 
   const containerVariants = {
@@ -84,7 +97,7 @@ export default function ProcessSteps({
     transition: {
       duration: 2,
       repeat: Infinity,
-      ease: "easeInOut",
+      ease: "easeInOut" as const,
     },
   };
 
@@ -94,7 +107,10 @@ export default function ProcessSteps({
       ref={ref}
       style={customStyles}
       className={cn(
-        "py-20 lg:py-32 bg-linear-to-b from-accent/10 to-background",
+        "py-20 lg:py-32",
+        !backgroundImage &&
+          !backgroundColor &&
+          "bg-linear-to-b from-accent/10 to-background",
         className
       )}
     >
@@ -122,7 +138,7 @@ export default function ProcessSteps({
         <motion.div
           variants={containerVariants}
           initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
+          animate="visible"
           className={cn(
             variant === "horizontal"
               ? "flex flex-col lg:flex-row items-center lg:items-start justify-center gap-8 lg:gap-4"

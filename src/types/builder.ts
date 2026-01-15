@@ -230,6 +230,11 @@ export interface FooterProps extends BaseBlockProps {
     alt: string;
   };
   description?: string;
+  contactInfo?: {
+    address?: string;
+    phone?: string;
+    email?: string;
+  };
   columns: FooterColumn[];
   socialLinks?: SocialLink[];
   copyright: string;

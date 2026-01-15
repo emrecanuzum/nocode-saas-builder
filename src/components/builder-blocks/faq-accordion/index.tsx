@@ -20,13 +20,26 @@ export default function FAQAccordion({
   allowMultiple = false,
   primaryColor,
   secondaryColor,
-}: FAQAccordionProps) {
+  backgroundImage,
+  backgroundColor,
+}: FAQAccordionProps & {
+  backgroundImage?: string;
+  backgroundColor?: string;
+}) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   const customStyles = {
     ...(primaryColor ? { "--primary": primaryColor } : {}),
     ...(secondaryColor ? { "--secondary": secondaryColor } : {}),
+    ...(backgroundImage
+      ? {
+          backgroundImage: `url(${backgroundImage})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }
+      : {}),
+    ...(backgroundColor ? { backgroundColor } : {}),
   } as React.CSSProperties;
 
   const containerVariants = {
@@ -59,7 +72,10 @@ export default function FAQAccordion({
       ref={ref}
       style={customStyles}
       className={cn(
-        "py-20 lg:py-32 bg-linear-to-b from-background to-accent/10",
+        "py-20 lg:py-32",
+        !backgroundImage &&
+          !backgroundColor &&
+          "bg-linear-to-b from-background to-accent/10",
         className
       )}
     >
@@ -87,7 +103,7 @@ export default function FAQAccordion({
         <motion.div
           variants={containerVariants}
           initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
+          animate="visible"
         >
           <Accordion
             type={allowMultiple ? "multiple" : "single"}

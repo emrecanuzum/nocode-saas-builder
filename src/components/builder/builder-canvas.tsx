@@ -247,7 +247,7 @@ export function BuilderCanvas() {
   const viewportWidths = {
     mobile: "max-w-sm", // 384px
     tablet: "max-w-2xl", // 672px
-    desktop: "max-w-5xl", // 1024px
+    desktop: "w-full", // Full width
   };
 
   return (

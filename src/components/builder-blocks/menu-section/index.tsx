@@ -36,9 +36,27 @@ export default function MenuSection({
   showImages = true,
   primaryColor,
   secondaryColor,
-}: MenuSectionProps) {
+  backgroundImage,
+  backgroundColor,
+}: MenuSectionProps & {
+  backgroundImage?: string;
+  backgroundColor?: string;
+}) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+
+  const customStyles = {
+    ...(primaryColor ? { "--primary": primaryColor } : {}),
+    ...(secondaryColor ? { "--secondary": secondaryColor } : {}),
+    ...(backgroundImage
+      ? {
+          backgroundImage: `url(${backgroundImage})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }
+      : {}),
+    ...(backgroundColor ? { backgroundColor } : {}),
+  } as React.CSSProperties;
 
   // Group items by category if provided, otherwise use initialCategories
   const categories =
@@ -80,7 +98,7 @@ export default function MenuSection({
       opacity: 1,
       x: 0,
       transition: {
-        type: "spring",
+        type: "spring" as const,
         stiffness: 100,
         damping: 15,
       },
@@ -91,8 +109,12 @@ export default function MenuSection({
     <section
       id={id}
       ref={ref}
+      style={customStyles}
       className={cn(
-        "py-20 lg:py-32 bg-gradient-to-b from-accent/5 to-background",
+        "py-20 lg:py-32",
+        !backgroundImage &&
+          !backgroundColor &&
+          "bg-linear-to-b from-accent/5 to-background",
         className
       )}
     >
@@ -136,8 +158,11 @@ export default function MenuSection({
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
-                    {category.icon && (
-                      <DynamicIcon name={category.icon} className="w-4 h-4" />
+                    {(category as any).icon && (
+                      <DynamicIcon
+                        name={(category as any).icon}
+                        className="w-4 h-4"
+                      />
                     )}
                     {category.name}
                   </motion.span>

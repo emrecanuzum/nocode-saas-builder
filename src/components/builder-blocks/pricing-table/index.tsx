@@ -17,7 +17,12 @@ export default function PricingTable({
   billingToggle,
   primaryColor,
   secondaryColor,
-}: PricingTableProps) {
+  backgroundImage,
+  backgroundColor,
+}: PricingTableProps & {
+  backgroundImage?: string;
+  backgroundColor?: string;
+}) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [isYearly, setIsYearly] = useState(false);
@@ -25,6 +30,14 @@ export default function PricingTable({
   const customStyles = {
     ...(primaryColor ? { "--primary": primaryColor } : {}),
     ...(secondaryColor ? { "--secondary": secondaryColor } : {}),
+    ...(backgroundImage
+      ? {
+          backgroundImage: `url(${backgroundImage})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }
+      : {}),
+    ...(backgroundColor ? { backgroundColor } : {}),
   } as React.CSSProperties;
 
   const containerVariants = {
@@ -58,7 +71,10 @@ export default function PricingTable({
       ref={ref}
       style={customStyles}
       className={cn(
-        "py-20 lg:py-32 bg-linear-to-b from-background via-accent/5 to-background",
+        "py-20 lg:py-32",
+        !backgroundImage &&
+          !backgroundColor &&
+          "bg-linear-to-b from-background via-accent/5 to-background",
         className
       )}
     >
@@ -131,7 +147,7 @@ export default function PricingTable({
         <motion.div
           variants={containerVariants}
           initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
+          animate="visible"
           className="grid gap-8 md:grid-cols-2 lg:grid-cols-3"
         >
           {plans.map((plan, index) => (

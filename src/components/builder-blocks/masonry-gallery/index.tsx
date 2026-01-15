@@ -17,11 +17,33 @@ export default function MasonryGallery({
   gap = "md",
   enableLightbox = true,
   showCategories = false,
-}: MasonryGalleryProps) {
+  primaryColor,
+  secondaryColor,
+  backgroundImage,
+  backgroundColor,
+}: MasonryGalleryProps & {
+  primaryColor?: string;
+  secondaryColor?: string;
+  backgroundImage?: string;
+  backgroundColor?: string;
+}) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
+
+  const customStyles = {
+    ...(primaryColor ? { "--primary": primaryColor } : {}),
+    ...(secondaryColor ? { "--secondary": secondaryColor } : {}),
+    ...(backgroundImage
+      ? {
+          backgroundImage: `url(${backgroundImage})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }
+      : {}),
+    ...(backgroundColor ? { backgroundColor } : {}),
+  } as React.CSSProperties;
 
   const categories = showCategories
     ? [...new Set(images.map((img) => img.category).filter(Boolean))]
@@ -110,8 +132,12 @@ export default function MasonryGallery({
     <section
       id={id}
       ref={ref}
+      style={customStyles}
       className={cn(
-        "py-20 lg:py-32 bg-gradient-to-b from-accent/5 to-background",
+        "py-20 lg:py-32",
+        !backgroundImage &&
+          !backgroundColor &&
+          "bg-linear-to-b from-accent/5 to-background",
         className
       )}
     >
@@ -175,12 +201,6 @@ export default function MasonryGallery({
             gapClasses[gap]
           )}
         >
-        >
-          <div className="bg-yellow-100 p-2 text-xs text-black mb-4">
-             DEBUG: Images count: {filteredImages.length}
-             <pre>{JSON.stringify(filteredImages.slice(0, 2), null, 2)}</pre>
-          </div>
-          
           {filteredImages.length === 0 ? (
             <div className="text-center py-12 text-muted-foreground bg-muted/30 rounded-lg">
               <p>Görsel bulunamadı.</p>

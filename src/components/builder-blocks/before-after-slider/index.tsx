@@ -25,12 +25,34 @@ export default function BeforeAfterSlider({
   afterLabel = "Sonra",
   defaultPosition = 50,
   orientation = "horizontal",
-}: BeforeAfterSliderProps) {
+  primaryColor,
+  secondaryColor,
+  backgroundImage,
+  backgroundColor,
+}: BeforeAfterSliderProps & {
+  primaryColor?: string;
+  secondaryColor?: string;
+  backgroundImage?: string;
+  backgroundColor?: string;
+}) {
   const ref = useRef(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [isDragging, setIsDragging] = useState(false);
   const [position, setPosition] = useState(defaultPosition);
+
+  const customStyles = {
+    ...(primaryColor ? { "--primary": primaryColor } : {}),
+    ...(secondaryColor ? { "--secondary": secondaryColor } : {}),
+    ...(backgroundImage
+      ? {
+          backgroundImage: `url(${backgroundImage})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }
+      : {}),
+    ...(backgroundColor ? { backgroundColor } : {}),
+  } as React.CSSProperties;
 
   const handleMove = useCallback(
     (clientX: number, clientY: number) => {
@@ -95,8 +117,12 @@ export default function BeforeAfterSlider({
     <section
       id={id}
       ref={ref}
+      style={customStyles}
       className={cn(
-        "py-20 lg:py-32 bg-gradient-to-b from-background to-accent/10",
+        "py-20 lg:py-32",
+        !backgroundImage &&
+          !backgroundColor &&
+          "bg-linear-to-b from-background to-accent/10",
         className
       )}
     >

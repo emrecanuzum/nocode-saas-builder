@@ -21,10 +21,18 @@ export default function HeroSection({
   mediaStyle = "decorated",
   primaryColor,
   secondaryColor,
+  backgroundImage,
+  backgroundColor,
+  overlayOpacity,
+  overlayColor,
 }: HeroSectionProps & {
   mediaStyle?: "simple" | "decorated";
   primaryColor?: string;
   secondaryColor?: string;
+  backgroundImage?: string;
+  backgroundColor?: string;
+  overlayOpacity?: number;
+  overlayColor?: string;
 }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
@@ -34,6 +42,14 @@ export default function HeroSection({
       ? { "--primary": primaryColor, "--primary-foreground": "#ffffff" }
       : {}),
     ...(secondaryColor ? { "--secondary": secondaryColor } : {}),
+    ...(backgroundImage
+      ? {
+          backgroundImage: `url(${backgroundImage})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }
+      : {}),
+    ...(backgroundColor ? { backgroundColor } : {}),
   } as React.CSSProperties;
 
   const containerVariants: Variants = {
@@ -97,10 +113,22 @@ export default function HeroSection({
       style={customStyles}
       className={cn(
         "relative min-h-[90vh] flex items-center overflow-hidden",
-        "bg-linear-to-br from-background via-background to-primary/10", // Primary tint on background
+        !backgroundImage &&
+          !backgroundColor &&
+          "bg-linear-to-br from-background via-background to-primary/10",
         className
       )}
     >
+      {/* Background overlay for images */}
+      {backgroundImage && (
+        <div
+          className="absolute inset-0 z-0"
+          style={{
+            backgroundColor: overlayColor || "rgba(0,0,0,0.5)",
+            opacity: (overlayOpacity || 50) / 100,
+          }}
+        />
+      )}
       {/* Background decorations */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div

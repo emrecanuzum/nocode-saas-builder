@@ -16,9 +16,27 @@ export default function FinalCTA({
   secondaryButton,
   backgroundStyle = "gradient",
   backgroundImage,
-}: FinalCTAProps) {
+  backgroundColor,
+  primaryColor,
+  secondaryColor,
+}: FinalCTAProps & {
+  backgroundColor?: string;
+  primaryColor?: string;
+  secondaryColor?: string;
+}) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+
+  const customStyles = {
+    ...(primaryColor ? { "--primary": primaryColor } : {}),
+    ...(secondaryColor ? { "--secondary": secondaryColor } : {}),
+    ...(backgroundColor &&
+    backgroundStyle !== "gradient" &&
+    backgroundStyle !== "solid" &&
+    backgroundStyle !== "image"
+      ? { backgroundColor }
+      : {}),
+  } as React.CSSProperties;
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -37,7 +55,7 @@ export default function FinalCTA({
       opacity: 1,
       y: 0,
       transition: {
-        type: "spring",
+        type: "spring" as const,
         stiffness: 100,
         damping: 15,
       },
@@ -48,11 +66,12 @@ export default function FinalCTA({
     <section
       id={id}
       ref={ref}
+      style={customStyles}
       className={cn("relative py-24 lg:py-32 overflow-hidden", className)}
     >
       {/* Background */}
       {backgroundStyle === "gradient" && (
-        <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary/90 to-primary/80" />
+        <div className="absolute inset-0 bg-linear-to-br from-primary via-primary/90 to-primary/80" />
       )}
       {backgroundStyle === "solid" && (
         <div className="absolute inset-0 bg-primary" />
@@ -142,30 +161,32 @@ export default function FinalCTA({
             variants={itemVariants}
             className="flex flex-wrap items-center justify-center gap-4 pt-4"
           >
-            <Button
-              size="lg"
-              variant="secondary"
-              asChild
-              className="relative overflow-hidden group bg-white text-primary hover:bg-white/90 px-8 py-6 text-base shadow-xl shadow-black/10"
-            >
-              <a href={ctaButton.href}>
-                <span className="relative z-10 flex items-center gap-2">
-                  {ctaButton.label}
+            {ctaButton && ctaButton.label && (
+              <Button
+                size="lg"
+                variant="secondary"
+                asChild
+                className="relative overflow-hidden group bg-white text-primary hover:bg-white/90 px-8 py-6 text-base shadow-xl shadow-black/10"
+              >
+                <a href={ctaButton.href || "#"}>
+                  <span className="relative z-10 flex items-center gap-2">
+                    {ctaButton.label}
+                    <motion.span
+                      animate={{ x: [0, 4, 0] }}
+                      transition={{ duration: 1.5, repeat: Infinity }}
+                    >
+                      <ArrowRight className="w-4 h-4" />
+                    </motion.span>
+                  </span>
                   <motion.span
-                    animate={{ x: [0, 4, 0] }}
-                    transition={{ duration: 1.5, repeat: Infinity }}
-                  >
-                    <ArrowRight className="w-4 h-4" />
-                  </motion.span>
-                </span>
-                <motion.span
-                  className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/10 to-transparent"
-                  initial={{ x: "-100%" }}
-                  whileHover={{ x: "100%" }}
-                  transition={{ duration: 0.5 }}
-                />
-              </a>
-            </Button>
+                    className="absolute inset-0 bg-linear-to-r from-transparent via-primary/10 to-transparent"
+                    initial={{ x: "-100%" }}
+                    whileHover={{ x: "100%" }}
+                    transition={{ duration: 0.5 }}
+                  />
+                </a>
+              </Button>
+            )}
 
             {secondaryButton && (
               <Button

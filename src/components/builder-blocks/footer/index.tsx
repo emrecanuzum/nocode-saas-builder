@@ -33,13 +33,36 @@ export default function Footer({
   className,
   logo,
   description,
+  contactInfo,
   columns,
   socialLinks,
   copyright,
   bottomLinks,
-}: FooterProps) {
+  primaryColor,
+  secondaryColor,
+  backgroundImage,
+  backgroundColor,
+}: FooterProps & {
+  primaryColor?: string;
+  secondaryColor?: string;
+  backgroundImage?: string;
+  backgroundColor?: string;
+}) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
+
+  const customStyles = {
+    ...(primaryColor ? { "--primary": primaryColor } : {}),
+    ...(secondaryColor ? { "--secondary": secondaryColor } : {}),
+    ...(backgroundImage
+      ? {
+          backgroundImage: `url(${backgroundImage})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }
+      : {}),
+    ...(backgroundColor ? { backgroundColor } : {}),
+  } as React.CSSProperties;
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -58,7 +81,7 @@ export default function Footer({
       opacity: 1,
       y: 0,
       transition: {
-        type: "spring",
+        type: "spring" as const,
         stiffness: 100,
         damping: 15,
       },
@@ -69,8 +92,10 @@ export default function Footer({
     <footer
       id={id}
       ref={ref}
+      style={customStyles}
       className={cn(
-        "relative bg-background border-t border-border/50",
+        "relative border-t border-border/50",
+        !backgroundImage && !backgroundColor && "bg-background",
         className
       )}
     >
@@ -102,6 +127,18 @@ export default function Footer({
                 {description}
               </p>
             )}
+
+            {/* Contact Info */}
+            {contactInfo &&
+              (contactInfo.address ||
+                contactInfo.phone ||
+                contactInfo.email) && (
+                <div className="space-y-2 text-sm text-muted-foreground">
+                  {contactInfo.address && <p>{contactInfo.address}</p>}
+                  {contactInfo.phone && <p>📞 {contactInfo.phone}</p>}
+                  {contactInfo.email && <p>✉️ {contactInfo.email}</p>}
+                </div>
+              )}
 
             {/* Social links */}
             {socialLinks && socialLinks.length > 0 && (

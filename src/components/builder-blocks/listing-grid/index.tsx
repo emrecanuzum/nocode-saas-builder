@@ -17,13 +17,35 @@ export default function ListingGrid({
   columns = 3,
   showFilters = false,
   filterOptions,
-}: ListingGridProps) {
+  primaryColor,
+  secondaryColor,
+  backgroundImage,
+  backgroundColor,
+}: ListingGridProps & {
+  primaryColor?: string;
+  secondaryColor?: string;
+  backgroundImage?: string;
+  backgroundColor?: string;
+}) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [activeFilters, setActiveFilters] = useState<Record<string, string>>(
     {}
   );
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
+
+  const customStyles = {
+    ...(primaryColor ? { "--primary": primaryColor } : {}),
+    ...(secondaryColor ? { "--secondary": secondaryColor } : {}),
+    ...(backgroundImage
+      ? {
+          backgroundImage: `url(${backgroundImage})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }
+      : {}),
+    ...(backgroundColor ? { backgroundColor } : {}),
+  } as React.CSSProperties;
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -43,7 +65,7 @@ export default function ListingGrid({
       y: 0,
       scale: 1,
       transition: {
-        type: "spring",
+        type: "spring" as const,
         stiffness: 100,
         damping: 15,
       },
@@ -60,8 +82,12 @@ export default function ListingGrid({
     <section
       id={id}
       ref={ref}
+      style={customStyles}
       className={cn(
-        "py-20 lg:py-32 bg-gradient-to-b from-background to-accent/5",
+        "py-20 lg:py-32",
+        !backgroundImage &&
+          !backgroundColor &&
+          "bg-linear-to-b from-background to-accent/5",
         className
       )}
     >

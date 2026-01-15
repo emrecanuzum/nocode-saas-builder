@@ -12,9 +12,31 @@ export default function TrustLogos({
   logos,
   animated = true,
   grayscale = true,
-}: TrustLogosProps) {
+  primaryColor,
+  secondaryColor,
+  backgroundImage,
+  backgroundColor,
+}: TrustLogosProps & {
+  primaryColor?: string;
+  secondaryColor?: string;
+  backgroundImage?: string;
+  backgroundColor?: string;
+}) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
+
+  const customStyles = {
+    ...(primaryColor ? { "--primary": primaryColor } : {}),
+    ...(secondaryColor ? { "--secondary": secondaryColor } : {}),
+    ...(backgroundImage
+      ? {
+          backgroundImage: `url(${backgroundImage})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }
+      : {}),
+    ...(backgroundColor ? { backgroundColor } : {}),
+  } as React.CSSProperties;
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -33,7 +55,7 @@ export default function TrustLogos({
       opacity: 1,
       y: 0,
       transition: {
-        type: "spring",
+        type: "spring" as const,
         stiffness: 100,
         damping: 15,
       },
@@ -47,8 +69,10 @@ export default function TrustLogos({
     <section
       id={id}
       ref={ref}
+      style={customStyles}
       className={cn(
-        "py-12 lg:py-16 bg-accent/30 border-y border-border/50 overflow-hidden",
+        "py-12 lg:py-16 border-y border-border/50 overflow-hidden",
+        !backgroundImage && !backgroundColor && "bg-accent/30",
         className
       )}
     >
@@ -70,8 +94,8 @@ export default function TrustLogos({
           // Infinite scroll animation
           <div className="relative group">
             {/* Gradient masks */}
-            <div className="absolute left-0 top-0 bottom-0 w-12 lg:w-24 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
-            <div className="absolute right-0 top-0 bottom-0 w-12 lg:w-24 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
+            <div className="absolute left-0 top-0 bottom-0 w-12 lg:w-24 bg-linear-to-r from-background to-transparent z-10 pointer-events-none" />
+            <div className="absolute right-0 top-0 bottom-0 w-12 lg:w-24 bg-linear-to-l from-background to-transparent z-10 pointer-events-none" />
 
             <div className="flex overflow-hidden">
               <motion.div
@@ -97,7 +121,7 @@ export default function TrustLogos({
                       target="_blank"
                       rel="noopener noreferrer"
                       className={cn(
-                        "flex-shrink-0 transition-all duration-300",
+                        "shrink-0 transition-all duration-300",
                         grayscale &&
                           "grayscale hover:grayscale-0 opacity-60 hover:opacity-100"
                       )}
@@ -118,7 +142,7 @@ export default function TrustLogos({
           <motion.div
             variants={containerVariants}
             initial="hidden"
-            animate={isInView ? "visible" : "hidden"}
+            animate="visible"
             className="flex flex-wrap items-center justify-center gap-8 lg:gap-12"
           >
             {logos.map((logo) => {
