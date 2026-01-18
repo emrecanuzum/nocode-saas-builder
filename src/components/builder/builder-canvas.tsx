@@ -23,11 +23,12 @@ import {
   useSortable,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { Trash2, Copy, GripVertical, Settings } from "lucide-react";
+import { Trash2, Copy, GripVertical, Settings, ArrowLeft } from "lucide-react";
 import { useBuilder } from "@/lib/builder-store";
 import { renderBlock, componentRegistry } from "@/lib/registry";
 import { BlockType, PageBlock } from "@/types/builder";
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 
 // Sortable block wrapper
 function SortableBlock({ block }: { block: PageBlock }) {
@@ -188,8 +189,15 @@ function EmptyCanvas() {
 }
 
 export function BuilderCanvas() {
-  const { page, isPreviewMode, addBlock, moveBlock, setIsDragging, viewport } =
-    useBuilder();
+  const {
+    page,
+    isPreviewMode,
+    togglePreview,
+    addBlock,
+    moveBlock,
+    setIsDragging,
+    viewport,
+  } = useBuilder();
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -260,7 +268,7 @@ export function BuilderCanvas() {
       <main
         ref={setNodeRef}
         className={cn(
-          "flex-1 overflow-y-auto bg-accent/30",
+          "flex-1 overflow-y-auto bg-accent/30 relative",
           isPreviewMode ? "p-0" : "p-6"
         )}
       >
@@ -290,6 +298,24 @@ export function BuilderCanvas() {
             </SortableContext>
           )}
         </div>
+
+        {/* Floating Return Button - Only in Preview Mode */}
+        {isPreviewMode && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="fixed bottom-6 left-1/2 -translate-x-1/2 z-9999"
+          >
+            <Button
+              onClick={togglePreview}
+              size="lg"
+              className="gap-2 shadow-2xl bg-primary hover:bg-primary/90 text-primary-foreground px-6 py-6"
+            >
+              <ArrowLeft className="w-5 h-5" />
+              Düzenlemeye Dön
+            </Button>
+          </motion.div>
+        )}
       </main>
     </DndContext>
   );
