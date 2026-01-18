@@ -24,7 +24,16 @@ export default function Navbar({
   ctaButton,
   sticky = true,
   transparent = false,
-}: NavbarProps) {
+  primaryColor,
+  secondaryColor,
+  backgroundColor,
+  backgroundImage,
+}: NavbarProps & {
+  primaryColor?: string;
+  secondaryColor?: string;
+  backgroundColor?: string;
+  backgroundImage?: string;
+}) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -38,6 +47,21 @@ export default function Navbar({
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [sticky]);
+
+  const showBackground = isScrolled || !transparent;
+
+  const customStyles = {
+    ...(primaryColor ? { "--primary": primaryColor } : {}),
+    ...(secondaryColor ? { "--secondary": secondaryColor } : {}),
+    ...(showBackground && backgroundImage
+      ? {
+          backgroundImage: `url(${backgroundImage})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }
+      : {}),
+    ...(showBackground && backgroundColor ? { backgroundColor } : {}),
+  } as React.CSSProperties;
 
   const navVariants = {
     hidden: { y: -100, opacity: 0 },
@@ -91,12 +115,17 @@ export default function Navbar({
       initial="hidden"
       animate="visible"
       variants={navVariants}
+      style={customStyles}
       className={cn(
         "w-full z-50 transition-all duration-300",
         sticky && "fixed top-0 left-0 right-0",
-        isScrolled || !transparent
+        showBackground && !backgroundImage && !backgroundColor
           ? "bg-background/95 backdrop-blur-md shadow-sm border-b border-border/50"
-          : "bg-transparent",
+          : "",
+        showBackground && (backgroundImage || backgroundColor)
+          ? "shadow-sm border-b border-border/50"
+          : "",
+        !showBackground ? "bg-transparent" : "",
         className
       )}
     >
@@ -214,7 +243,7 @@ export default function Navbar({
             animate="visible"
             exit="hidden"
             variants={mobileMenuVariants}
-            className="lg:hidden overflow-hidden bg-background/95 backdrop-blur-md border-t border-border/50"
+            className="lg:hidden overflow-hidden bg-background/95 backdrop-blur-md border-t border-border/50" // Mobile menu should always have background
           >
             <div className="px-4 py-4 space-y-2">
               {menuItems.map((item) => (

@@ -115,7 +115,7 @@ export default function HeroSection({
         "relative min-h-[90vh] flex items-center overflow-hidden",
         !backgroundImage &&
           !backgroundColor &&
-          "bg-linear-to-br from-background via-background to-primary/10",
+          "bg-linear-to-br from-background via-background to-primary/5",
         className
       )}
     >
@@ -129,19 +129,21 @@ export default function HeroSection({
           }}
         />
       )}
-      {/* Background decorations */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <motion.div
-          animate={{ rotate: 360 }}
-          transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
-          className="absolute -top-1/2 -right-1/4 w-[800px] h-[800px] bg-linear-to-br from-primary/10 to-transparent rounded-full blur-3xl"
-        />
-        <motion.div
-          animate={{ rotate: -360 }}
-          transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
-          className="absolute -bottom-1/2 -left-1/4 w-[600px] h-[600px] bg-linear-to-tr from-primary/15 to-transparent rounded-full blur-3xl"
-        />
-      </div>
+      {/* Background decorations - only show if no custom background */}
+      {!backgroundImage && !backgroundColor && (
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <motion.div
+            animate={{ rotate: 360 }}
+            transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
+            className="absolute -top-1/2 -right-1/4 w-[800px] h-[800px] bg-linear-to-br from-primary/5 to-transparent rounded-full blur-3xl"
+          />
+          <motion.div
+            animate={{ rotate: -360 }}
+            transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
+            className="absolute -bottom-1/2 -left-1/4 w-[600px] h-[600px] bg-linear-to-tr from-primary/5 to-transparent rounded-full blur-3xl"
+          />
+        </div>
+      )}
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32">
         <div

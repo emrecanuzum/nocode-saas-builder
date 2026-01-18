@@ -1,107 +1,104 @@
-# 🚀 No-Code SaaS Builder
+# 🚀 NoCode SaaS Builder
 
-> **Modern, powerful, and intuitive website builder designed for creating SaaS landing pages with ease.**
+Modern, sürükle-bırak destekli web sitesi oluşturucu. Next.js 16, React 19, Tailwind CSS 4 ve Framer Motion ile geliştirilmiştir.
 
-![Project Banner](https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2070&auto=format&fit=crop)
+![Builder Arayüzü](/1.png)
 
-[![Next.js](https://img.shields.io/badge/Next.js-15-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v4-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
-[![Framer Motion](https://img.shields.io/badge/Motion-Framer-purple?style=for-the-badge&logo=framer)](https://www.framer.com/motion/)
+## ✨ Özellikler
 
-## 📖 Overview
+- **Sürükle-Bırak Düzenleyici**: Blokları sürükleyerek sayfa oluşturun
+- **16 Hazır Bileşen**: Navbar'dan Footer'a, Hero'dan Pricing'e tüm ihtiyaçlar
+- **Gerçek Zamanlı Önizleme**: Değişiklikleri anında görün
+- **Responsive Tasarım**: Mobil, tablet ve masaüstü görünümlerini test edin
+- **Kod Dışa Aktarma**: Oluşturduğunuz sayfayı React/Next.js kodu olarak indirin
+- **Tema Özelleştirme**: Her bileşen için renk ve arkaplan ayarları
 
-**No-Code SaaS Builder** is a cutting-edge interface that allows users to construct beautiful, responsive high-performance landing pages using a drag-and-drop system. Built on the latest web technologies, it offers a seamless "What You See Is What You Get" (WYSIWYG) experience.
+![Bileşen Paneli](/2.png)
 
-Whether you are prototyping a startup idea or deploying a full-scale marketing site, this builder provides the components and flexibility you need.
+## 🧩 Hazır Bileşenler
 
-## ✨ Key Features
+| Kategori         | Bileşenler                                                                  |
+| ---------------- | --------------------------------------------------------------------------- |
+| **Layout**       | Navbar, Footer                                                              |
+| **Content**      | Hero Section, Benefits Grid, Process Steps, Feature Zig-Zag, FAQ Accordion  |
+| **Social Proof** | Trust Logos, Testimonial Grid                                               |
+| **Conversion**   | Pricing Table, Final CTA                                                    |
+| **Sector**       | Listing Grid, Menu Section, Before/After Slider, Team Grid, Masonry Gallery |
 
-- **🎨 Visual Canvas editor**: Real-time drag-and-drop interface powered by `dnd-kit`.
-- **🧩 15+ Premium Components**: Ready-to-use blocks including Hero, Pricing, Testimonials, Features, and more.
-- **⚡️ Blazing Fast Performance**: Built on Next.js 15 (App Router) and optimized for core web vitals.
-- **📱 Fully Responsive**: All components are mobile-first and strictly typed with TypeScript.
-- **💅 Global Theme Control**: Manage primary/secondary colors and styling centrally.
-- **🔄 Dynamic Property Panels**: Edit text, images, icons, and array lists (like plans or team members) instantly.
-- **🎭 Rich Animations**: Smooth transitions and scroll effects powered by Framer Motion.
+![Önizleme Modu](/3.png)
 
-## 🛠 Tech Stack
+## 🛠️ Teknoloji Stack
 
-- **Framework**: [Next.js 15](https://nextjs.org/) (App Router, Turbopack)
-- **Language**: [TypeScript](https://www.typescriptlang.org/)
-- **Styling**: [Tailwind CSS v4](https://tailwindcss.com/) & [Lucide Icons](https://lucide.dev/)
-- **State Management**: React Context & Hooks
-- **Drag & Drop**: [@dnd-kit/core](https://dndkit.com/)
-- **Animations**: [Framer Motion](https://www.framer.com/motion/)
-- **UI Components**: [Shadcn/ui](https://ui.shadcn.com/) based architecture
+- **Framework**: Next.js 16 (App Router)
+- **UI**: React 19, Tailwind CSS 4
+- **Animasyonlar**: Framer Motion
+- **Sürükle-Bırak**: @dnd-kit
+- **İkonlar**: Lucide React
+- **State Management**: React Context API
 
-## 🚀 Getting Started
-
-Follow these steps to run the project locally.
-
-### Prerequisites
-
-- Node.js 18+
-- npm or pnpm
-
-### Installation
-
-1. **Clone the repository**
-
-   ```bash
-   git clone https://github.com/yourusername/nocode-saas-builder.git
-   cd nocode-saas-builder
-   ```
-
-2. **Install dependencies**
-
-   ```bash
-   npm install
-   # or
-   pnpm install
-   ```
-
-3. **Start the development server**
-
-   ```bash
-   npm run dev
-   ```
-
-4. **Open your browser**
-   Navigate to [http://localhost:3000/builder](http://localhost:3000/builder) to start building!
-
-## 📂 Project Structure
+## 📦 Kurulum
 
 ```bash
-src/
-├── app/                  # Next.js App Router pages
-│   ├── builder/          # Main builder editor route
-│   └── layout.tsx        # Root layout
-├── components/
-│   ├── builder/          # Core builder logic (Canvas, Sidebar, PropertyPanel)
-│   ├── builder-blocks/   # Draggable components (Hero, Features, Pricing, etc.)
-│   └── ui/               # Reusable base UI components
-├── lib/                  # Utilities and helper functions
-├── hooks/                # Custom React hooks
-└── types/                # TypeScript interface definitions (BuilderElement, etc.)
+# Bağımlılıkları yükle
+npm install
+
+# Geliştirme sunucusunu başlat
+npm run dev
+
+# Production build
+npm run build
 ```
 
-## 🤝 Contributing
+## 🏗️ Proje Yapısı
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+```
+src/
+├── app/                    # Next.js App Router
+├── components/
+│   ├── builder/            # Builder UI bileşenleri
+│   │   ├── block-item.tsx     # Tek blok wrapper
+│   │   ├── canvas.tsx         # Sürükle-bırak canvas
+│   │   ├── component-panel.tsx # Sol panel - bileşen listesi
+│   │   ├── property-pane.tsx  # Sağ panel - özellik düzenleyici
+│   │   └── toolbar.tsx        # Üst araç çubuğu
+│   ├── builder-blocks/     # 16 adet hazır bileşen
+│   │   ├── navbar/
+│   │   ├── hero-section/
+│   │   ├── trust-logos/
+│   │   └── ...
+│   └── ui/                 # Shadcn/UI bileşenleri
+├── lib/
+│   ├── builder-store.tsx   # Global state yönetimi
+│   ├── code-generator.ts   # Kod dışa aktarma
+│   ├── registry.tsx        # Bileşen kayıt sistemi
+│   └── sample-data.ts      # Örnek veriler
+└── types/
+    └── builder.ts          # TypeScript tip tanımları
+```
 
-1. Fork the project
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+## 🎨 Kullanım
 
-## 📄 License
+1. **Bileşen Ekle**: Sol panelden bileşenleri sürükleyerek canvas'a bırakın
+2. **Düzenle**: Bileşene tıklayarak sağ panelden özelliklerini düzenleyin
+3. **Sırala**: Bileşenleri sürükleyerek sırasını değiştirin
+4. **Önizle**: Toolbar'daki önizleme butonuyla sonucu görün
+5. **Dışa Aktar**: "Kodu Görüntüle" ile React kodunu alın veya ZIP olarak indirin
 
-This project is open-source and available under the [MIT License](LICENSE).
+![Kod Dışa Aktarma](/4.png)
+
+## 🔧 Bileşen Özellikleri
+
+Her bileşen şu ortak özellikleri destekler:
+
+- `primaryColor`: Ana tema rengi
+- `secondaryColor`: İkincil tema rengi
+- `backgroundColor`: Arkaplan rengi
+- `backgroundImage`: Arkaplan resmi
+
+## 📝 Lisans
+
+MIT License
 
 ---
 
-<p align="center">
-  Made with ❤️ by Emre Can
-</p>
+**Geliştirici**: Emre Can Uzum
