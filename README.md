@@ -1,8 +1,8 @@
-# 🚀 NoCode SaaS Builder
+# NoCode SaaS Builder
 
 Modern, sürükle-bırak destekli web sitesi oluşturucu. Next.js 16, React 19, Tailwind CSS 4 ve Framer Motion ile geliştirilmiştir.
 
-## ✨ Özellikler
+## Özellikler
 
 - **Sürükle-Bırak Düzenleyici**: Blokları sürükleyerek sayfa oluşturun
 - **16 Hazır Bileşen**: Navbar'dan Footer'a, Hero'dan Pricing'e tüm ihtiyaçlar
@@ -16,7 +16,7 @@ Modern, sürükle-bırak destekli web sitesi oluşturucu. Next.js 16, React 19, 
 
 ---
 
-> [!WARNING] > **Kullanım Uyarıları:**
+> [!UYARI] > **Kullanım Uyarıları:**
 >
 > - Canvas kendi içinde Drag & Drop (sürükle bırak) olarak çalışıyor. **Canvas'a component eklemek için çift tıklamalısınız.**
 > - Bazı componentler görüntülenme animasyonları sebebiyle canvas'ta görünmeyebilir. Bu durumda **önizleme moduna girip tekrar düzenleme moduna geçiniz.**
@@ -24,7 +24,7 @@ Modern, sürükle-bırak destekli web sitesi oluşturucu. Next.js 16, React 19, 
 
 ---
 
-## 🎯 Sürükle-Bırak Sistemi
+## Sürükle-Bırak Sistemi
 
 Builder, **@dnd-kit** kütüphanesi üzerine kurulmuştur ve şu özellikleri sunar:
 
@@ -63,7 +63,7 @@ Builder, **@dnd-kit** kütüphanesi üzerine kurulmuştur ve şu özellikleri su
 
 ---
 
-## 📦 Bileşen Detayları
+## Bileşen Detayları
 
 Her bileşen aşağıdaki **ortak özellikleri** destekler:
 
@@ -76,7 +76,7 @@ Her bileşen aşağıdaki **ortak özellikleri** destekler:
 
 ---
 
-### 🔷 LAYOUT BİLEŞENLERİ
+### LAYOUT BİLEŞENLERİ
 
 #### 1. Navbar (Navigation Bar)
 
@@ -122,7 +122,7 @@ Sayfa alt bilgisi - linkler, sosyal medya ve telif hakkı.
 
 ---
 
-### 🔷 CONTENT BİLEŞENLERİ
+### CONTENT BİLEŞENLERİ
 
 #### 3. Hero Section
 
@@ -212,7 +212,7 @@ Açılır-kapanır soru-cevap bölümü.
 
 ---
 
-### 🔷 SOCIAL PROOF BİLEŞENLERİ
+### SOCIAL PROOF BİLEŞENLERİ
 
 #### 8. Trust Logos
 
@@ -250,7 +250,7 @@ Müşteri yorumları kartları.
 
 ---
 
-### 🔷 CONVERSION BİLEŞENLERİ
+### CONVERSION BİLEŞENLERİ
 
 #### 10. Pricing Table
 
@@ -292,7 +292,7 @@ Sayfa sonu büyük çağrı-aksiyon bölümü.
 
 ---
 
-### 🔷 SECTOR BİLEŞENLERİ
+### SECTOR BİLEŞENLERİ
 
 #### 12. Listing Grid
 
@@ -401,7 +401,7 @@ Pinterest tarzı masonry galeri.
 
 ---
 
-## 🎨 Kullanım
+## Kullanım
 
 1. **Bileşen Ekle**: Sol panelden bileşenleri sürükleyerek canvas'a bırakın
 2. **Düzenle**: Bileşene tıklayarak sağ panelden özelliklerini düzenleyin
@@ -414,7 +414,7 @@ Pinterest tarzı masonry galeri.
 
 ---
 
-## 🛠️ Teknoloji Stack
+## Teknoloji Stack
 
 - **Framework**: Next.js 16 (App Router)
 - **UI**: React 19, Tailwind CSS 4
@@ -423,7 +423,7 @@ Pinterest tarzı masonry galeri.
 - **İkonlar**: Lucide React
 - **State Management**: React Context API
 
-## 📦 Kurulum
+## Kurulum
 
 ```bash
 # Bağımlılıkları yükle
@@ -436,7 +436,7 @@ npm run dev
 npm run build
 ```
 
-## 🏗️ Proje Yapısı
+## Proje Yapısı
 
 ```
 src/
