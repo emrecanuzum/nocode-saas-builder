@@ -1,6 +1,6 @@
 # NoCode SaaS Builder
 
-Modern, sürükle-bırak destekli web sitesi oluşturucu. Next.js 16, React 19, Tailwind CSS 4 ve Framer Motion ile geliştirilmiştir.
+Modern, sürükle-bırak destekli web sitesi oluşturucu. Next.js 16, React 19, Tailwind CSS 4 ve Framer Motion ile geliştirilmiştir. Vibe coding projesidir.
 
 ## Özellikler
 
